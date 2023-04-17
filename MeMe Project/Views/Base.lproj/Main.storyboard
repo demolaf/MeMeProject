@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Meme Editor View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MeMe_Project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MemeEditorViewController" customModule="MeMe_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -47,26 +47,26 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="XW1-Lc-Psv"/>
                                     <barButtonItem image="camera.fill" catalog="system" id="tdS-R6-cYk" userLabel="Camera Bar Button Item">
                                         <connections>
-                                            <action selector="cameraTabItemPressed:" destination="BYZ-38-t0r" id="md0-Qe-fwz"/>
+                                            <action selector="selectImagePressed:" destination="BYZ-38-t0r" id="bBK-vz-Vck"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Meq-Q8-37k"/>
-                                    <barButtonItem title="Album" id="yjC-0F-yeU">
+                                    <barButtonItem tag="1" title="Album" id="yjC-0F-yeU">
                                         <connections>
-                                            <action selector="albumTabItemPressed:" destination="BYZ-38-t0r" id="sDI-wl-Dpf"/>
+                                            <action selector="selectImagePressed:" destination="BYZ-38-t0r" id="zDD-zK-Kb1"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="xmP-iw-bgQ"/>
                                 </items>
                                 <toolbarAppearance key="standardAppearance"/>
                             </toolbar>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4C6-io-3zY" userLabel="Top Text Field">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4C6-io-3zY" userLabel="Top Text Field">
                                 <rect key="frame" x="24" y="112.00000000000001" width="345" height="45.666666666666671"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="36"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XJ4-Yt-4Qu" userLabel="Bottom Text Field">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XJ4-Yt-4Qu" userLabel="Bottom Text Field">
                                 <rect key="frame" x="24" y="680.33333333333337" width="345" height="45.666666666666629"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="36"/>

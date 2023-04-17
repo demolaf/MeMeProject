@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class MemeEditorViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     // MARK: Delegates
     
@@ -29,14 +29,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         
         self.initializeDelegates()
         self.setTextFieldDelegates()
-        self.setTextFieldAttributes()
+        self.prepareTextField(textField: topTextField, defaultText: "TOP")
+        self.prepareTextField(textField: bottomTextField, defaultText: "BOTTOM")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Disable camera button if not available
-        self.cameraTabItem.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        self.checkIfCameraAvailable()
         
         self.setupKeyboardNotifier()
     }
@@ -58,7 +58,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         self.bottomTextField.delegate = self.memeTextFieldDelegate
     }
     
-    func setTextFieldAttributes() {
+    func prepareTextField(textField: UITextField, defaultText: String) {
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center
         
@@ -70,9 +70,16 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
             NSAttributedString.Key.strokeWidth:  -3.0,
         ]
         
-        self.topTextField.defaultTextAttributes = memeTextAttributes
-        self.bottomTextField.defaultTextAttributes = memeTextAttributes
-        
+        textField.text = defaultText
+        textField.defaultTextAttributes = memeTextAttributes
+    }
+    
+    func checkIfCameraAvailable() {
+#if targetEnvironment(simulator)
+        cameraTabItem.isEnabled = false;
+#else
+        cameraTabItem.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera);
+#endif
     }
     
     // MARK: Hide keyboard setup
@@ -107,25 +114,27 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     // MARK: IBActions
     
-    @IBAction func albumTabItemPressed(_ sender: UIBarButtonItem) {
-        initializeImagePickerController(sourceType: .photoLibrary)
-    }
-    
-    @IBAction func cameraTabItemPressed(_ sender: UIBarButtonItem) {
-        initializeImagePickerController(sourceType: .camera)
+    // This method handles the action for both camera and album buttons.
+    // An extension on integers to parse sender tag to image picker source type
+    // for better readability.
+    @IBAction func selectImagePressed(_ sender: UIBarButtonItem) {
+        let sourceType = sender.tag.parseIntToSourceType()
+        
+        initializeImagePickerController(sourceType: sourceType)
     }
     
     @IBAction func shareTabItemPressed(_ sender: UIBarButtonItem) {
-        let meme = self.createMeme()
-        
-        if let meme = meme {
-            // set up activity view controller
-            let activityViewController = UIActivityViewController(activityItems: [ meme.memedImage! ], applicationActivities: nil)
-            
-            // present the view controller
-            self.present(activityViewController, animated: true, completion: nil)
+        let memedImage = generateMemedImage()
+        let controller = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
+        controller.completionWithItemsHandler = {(activity, completed, items, error) in
+            if (completed) {
+                self.saveMeme(memedImage: memedImage)
+                self.dismiss(animated:true,completion:nil)
+            }
         }
+        self.present(controller, animated: true, completion: nil)
     }
+    
     
     @IBAction func cancelTabItemPressed(_ sender: UIBarButtonItem) {
         self.memeImageView.image = UIImage()
@@ -146,13 +155,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     // We construct a meme object that contains the top & bottom texts, original
     // image and the memed image.
-    private func createMeme() -> Meme? {
+    private func saveMeme(memedImage: UIImage) {
         if let image = self.memeImageView.image {
             // Create the meme
-            return Meme(topText: self.topTextField.text!, bottomText: self.bottomTextField.text!, originalImage: image, memedImage: generateMemedImage())
+            let meme = Meme(topText: self.topTextField.text!, bottomText: self.bottomTextField.text!, originalImage: image, memedImage: memedImage)
         }
-        
-        return nil
     }
     
     // This method is responsible for grabbing the current frame as an image
