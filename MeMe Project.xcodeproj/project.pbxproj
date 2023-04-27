@@ -72,9 +72,9 @@
 		7E1588F129E7961400C09E62 /* MeMe Project */ = {
 			isa = PBXGroup;
 			children = (
+				7E15890D29ECCE0300C09E62 /* Models */,
 				7E15890F29ECCE1500C09E62 /* Controllers */,
 				7E15890E29ECCE0800C09E62 /* Views */,
-				7E15890D29ECCE0300C09E62 /* Models */,
 				7E1588F229E7961400C09E62 /* AppDelegate.swift */,
 				7E1588F429E7961400C09E62 /* SceneDelegate.swift */,
 				7E1588FB29E7961500C09E62 /* Assets.xcassets */,
@@ -103,14 +103,10 @@
 		7E15890F29ECCE1500C09E62 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7EC9573629FAC22B00380B0A /* Collection View */,
-				7EF8B7E829EDB0ED00B3DBBD /* Extensions */,
-				7E15891029ECCE3500C09E62 /* TextField Delegates */,
-				7E1588F629E7961400C09E62 /* MemeEditorViewController.swift */,
-				7EC9572C29FA067200380B0A /* TableViewController.swift */,
-				7EC9572E29FA06A400380B0A /* CollectionViewController.swift */,
-				7EC9573029FA08C300380B0A /* MemeTableViewCell.swift */,
-				7EC9573429FAB89F00380B0A /* MemeDetailViewController.swift */,
+				7EC9573A29FAC2E900380B0A /* Meme Detail */,
+				7EC9573929FAC2C500380B0A /* Meme Editor */,
+				7EC9573729FAC28A00380B0A /* Table */,
+				7EC9573629FAC22B00380B0A /* Collection */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -123,12 +119,40 @@
 			path = "TextField Delegates";
 			sourceTree = "<group>";
 		};
-		7EC9573629FAC22B00380B0A /* Collection View */ = {
+		7EC9573629FAC22B00380B0A /* Collection */ = {
 			isa = PBXGroup;
 			children = (
 				7EC9573229FA08E300380B0A /* MemeCollectionViewCell.swift */,
+				7EC9572E29FA06A400380B0A /* CollectionViewController.swift */,
 			);
-			path = "Collection View";
+			path = Collection;
+			sourceTree = "<group>";
+		};
+		7EC9573729FAC28A00380B0A /* Table */ = {
+			isa = PBXGroup;
+			children = (
+				7EC9573029FA08C300380B0A /* MemeTableViewCell.swift */,
+				7EC9572C29FA067200380B0A /* TableViewController.swift */,
+			);
+			path = Table;
+			sourceTree = "<group>";
+		};
+		7EC9573929FAC2C500380B0A /* Meme Editor */ = {
+			isa = PBXGroup;
+			children = (
+				7EF8B7E829EDB0ED00B3DBBD /* Extensions */,
+				7E15891029ECCE3500C09E62 /* TextField Delegates */,
+				7E1588F629E7961400C09E62 /* MemeEditorViewController.swift */,
+			);
+			path = "Meme Editor";
+			sourceTree = "<group>";
+		};
+		7EC9573A29FAC2E900380B0A /* Meme Detail */ = {
+			isa = PBXGroup;
+			children = (
+				7EC9573429FAB89F00380B0A /* MemeDetailViewController.swift */,
+			);
+			path = "Meme Detail";
 			sourceTree = "<group>";
 		};
 		7EF8B7E829EDB0ED00B3DBBD /* Extensions */ = {
