@@ -28,7 +28,6 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
         super.viewDidLoad()
         
         self.initializeDelegates()
-        self.setTextFieldDelegates()
         self.prepareTextField(textField: topTextField, defaultText: "TOP")
         self.prepareTextField(textField: bottomTextField, defaultText: "BOTTOM")
     }
@@ -53,11 +52,6 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
     
     // MARK: UI configuration
     
-    func setTextFieldDelegates() {
-        self.topTextField.delegate = self.memeTextFieldDelegate
-        self.bottomTextField.delegate = self.memeTextFieldDelegate
-    }
-    
     func prepareTextField(textField: UITextField, defaultText: String) {
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center
@@ -72,6 +66,7 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
         
         textField.text = defaultText
         textField.defaultTextAttributes = memeTextAttributes
+        textField.delegate = self.memeTextFieldDelegate
     }
     
     func checkIfCameraAvailable() {
@@ -159,6 +154,11 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
         if let image = self.memeImageView.image {
             // Create the meme
             let meme = Meme(topText: self.topTextField.text!, bottomText: self.bottomTextField.text!, originalImage: image, memedImage: memedImage)
+            
+            // Add it to the memes array in the Application Delegate
+            let object = UIApplication.shared.delegate
+            let appDelegate = object as! AppDelegate
+            appDelegate.memes.append(meme)
         }
     }
     
